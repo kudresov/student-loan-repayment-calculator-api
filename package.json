@@ -1,0 +1,23 @@
+{
+  "name": "student-loan-repayment-calculator-api",
+  "version": "1.0.0",
+  "description": "Stuent loan repayment calculator API",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kudresov/student-loan-repayment-calculator-api.git"
+  },
+  "author": "Vitalij Kudresov <kudresov@gmail.com> (http://kudresov.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kudresov/student-loan-repayment-calculator-api/issues"
+  },
+  "homepage": "https://github.com/kudresov/student-loan-repayment-calculator-api#readme"
+}
