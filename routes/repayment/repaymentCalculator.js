@@ -1,6 +1,10 @@
 'use strict';
 
 var _ = require('underscore');
+var moment = require('moment');
+var math = require('mathjs');
+var REPAYMENT_THRESHOLD = 17335;
+var REPAYMENT_PERC = 0.09;
 
 var tuitionFees = [
   {
@@ -72,8 +76,42 @@ var interestRates = [
 // 1998/99 3.5
 ];
 
-module.exports.calculate = function(test){
-  console.log(test);
+var calculateMonthlyRepayment = function(salary){
+  var yearlyDeductableAmout = salary - REPAYMENT_THRESHOLD;
+  var monthlyDeduction = yearlyDeductableAmout * REPAYMENT_PERC / 12;
+  console.log(yearlyDeductableAmout * REPAYMENT_PERC);
+  return monthlyDeduction;
+};
+  
+module.exports.calculateRepayments = function(lastStudyYear, jobs){
+  if (!jobs || jobs.length === 0) {
+    return {
+      total: 0
+    };
+  }
+
+  var expectedRepaymentDate = moment({year: lastStudyYear + 2, months: 3});
+  var jobStart = jobs[0].startDate;
+  var jobStartDate = moment(jobStart);
+  var salary = jobs[0].basicSalary;
+  var firstRepaymentDate;
+
+  if (expectedRepaymentDate.isAfter(jobStartDate)) {
+    firstRepaymentDate = expectedRepaymentDate;
+  }else {
+    firstRepaymentDate = jobStartDate;
+  }
+  
+  var jobEnd = jobs[0].endDate;
+  var jobEndDate = moment(jobEnd);
+
+  var jobDurationInMonths = jobEndDate.diff(firstRepaymentDate, 'months');
+  var monthlyRepayment = calculateMonthlyRepayment(salary);
+  var totalRepayment = monthlyRepayment * jobDurationInMonths;
+
+  return {
+    total: math.round(totalRepayment, 2)
+  };
 };
 
 module.exports.calculateTotalLoan = function(studyYears){

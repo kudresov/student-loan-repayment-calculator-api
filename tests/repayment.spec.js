@@ -47,7 +47,7 @@ describe('/repayment', function(){
       });
 
       describe('with 2008-2011 study years and 30k salary for 12 months starting on 1st of September 2011', function(){
-        it('should have repayed 569.93£', function(done){
+        it('should have repayed 474.94£', function(done){
           var requestBody = {
               studyYears: [2008, 2009, 2010],
               jobs: [
@@ -63,15 +63,40 @@ describe('/repayment', function(){
             .send(requestBody)
             .end(function(err, res) {
               expect(res.status).to.equal(201);
-              expect(res.body.totalRepaid).to.equal(569.93);
+              expect(res.body.totalRepaid).to.equal(474.94);
               done();
             });
 
         });
       });
 
+      describe('with 2008-2011 study years and 30k salary for 1 month starting 1st of april', function(){
+        it('should have repayed', function(done){
+           var requestBody = {
+              studyYears: [2008, 2009, 2010],
+              jobs: [
+                  {
+                      startDate: '2012-04-01T00:00:00.000Z',
+                      endDate: '2012-05-01T00:00:00.000Z',
+                      basicSalary: 30000
+                  }
+              ]
+            };  
+
+          repaymentRequest()
+            .send(requestBody)
+            .end(function(err, res) {
+              expect(res.status).to.equal(201);
+              expect(res.body.totalRepaid).to.equal(94.99);
+              done();
+            });
+
+
+        });
+      });
+
       describe('with 2008-2011 study years and 30k salary for 24 months starting on 1st of September 2011', function(){
-        xit('should have repayed 1709.78£', function(done){
+        it('should have repayed 1709.78£', function(done){
           var requestBody = {
               studyYears: [2008, 2009, 2010],
               jobs: [
@@ -87,7 +112,7 @@ describe('/repayment', function(){
             .send(requestBody)
             .end(function(err, res) {
               expect(res.status).to.equal(201);
-              expect(res.body.totalRepaid).to.equal(1709.78);
+              expect(res.body.totalRepaid).to.equal(1614.79);
               done();
             });
 
