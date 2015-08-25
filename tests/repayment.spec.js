@@ -39,10 +39,17 @@ describe('/repayment', function(){
         };
       });
 
-      it('should have a total loan of 9745£', function(done){
+      it('should return status 201', function(done){
         repaymentRequest(requestBody)
           .end(function(err, res) {
             expect(res.status).to.equal(201);
+            done();
+          });        
+      });
+
+      it('should have a total loan of 9745£', function(done){
+        repaymentRequest(requestBody)
+          .end(function(err, res) {
             expect(res.body.totalLoan).to.equal(9595);
             done();
           });
@@ -62,7 +69,6 @@ describe('/repayment', function(){
 
             repaymentRequest(requestBody)
               .end(function(err, res) {
-                expect(res.status).to.equal(201);
                 expect(res.body.totalRepaid).to.equal(474.94);
                 done();
               });
@@ -80,7 +86,6 @@ describe('/repayment', function(){
 
             repaymentRequest(requestBody)
               .end(function(err, res) {
-                expect(res.status).to.equal(201);
                 expect(res.body.totalRepaid).to.equal(94.99);
                 done();
               });
@@ -98,7 +103,6 @@ describe('/repayment', function(){
 
             repaymentRequest(requestBody)
               .end(function(err, res) {
-                expect(res.status).to.equal(201);
                 expect(res.body.totalRepaid).to.equal(1614.79);
                 done();
               });
@@ -120,7 +124,6 @@ describe('/repayment', function(){
 
             repaymentRequest(requestBody)
               .end(function(err, res) {
-                expect(res.status).to.equal(201);
                 expect(res.body.totalRepaid).to.equal(0);
                 done();
               });  
@@ -142,7 +145,6 @@ describe('/repayment', function(){
 
             repaymentRequest(requestBody)
               .end(function(err, res) {
-                expect(res.status).to.equal(201);
                 expect(res.body.totalRepaid).to.equal(0);
                 done();
               });  
