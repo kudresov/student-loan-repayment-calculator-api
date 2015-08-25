@@ -71,7 +71,7 @@ describe('/repayment', function(){
         });
 
         describe('for 1 month starting 1st of april', function(){
-          it('should have repayed', function(done){
+          it('should have repayed 94.99£', function(done){
              requestBody.jobs = [
                     {
                         startDate: '2012-04-01T00:00:00.000Z',
@@ -89,7 +89,7 @@ describe('/repayment', function(){
         });
 
         describe('for 24 months starting on 1st of September 2011', function(){
-          it('should have repayed 1709.78£', function(done){
+          it('should have repayed 1614.79£', function(done){
             requestBody.jobs = [
                     {
                         startDate: '2011-09-01T00:00:00.000Z',
