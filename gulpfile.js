@@ -6,7 +6,7 @@ var gutil = require('gulp-util');
 
 gulp.task('test', function() {
   return gulp.src(['tests/**/*.js'], {read: false})
-             .pipe(mocha({ reporter: 'list' }))
+             .pipe(mocha({ reporter: 'spec' }))
              .on('error', gutil.log);
 });
 
