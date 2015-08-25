@@ -86,6 +86,27 @@ var calculateMonthlyRepayment = function(salary){
 
   return monthlyDeduction;
 };
+
+var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
+
+  var expectedRepaymentDate = moment({year: lastStudyYear + 2, months: 3});
+  var jobStart = job.startDate;
+  var jobStartDate = moment(jobStart);
+  var jobEnd = job.endDate;
+  var jobEndDate = moment(jobEnd);
+  
+  var firstRepaymentDate;
+
+  if (expectedRepaymentDate.isAfter(jobStartDate)) {
+    firstRepaymentDate = expectedRepaymentDate;
+  }else {
+    firstRepaymentDate = jobStartDate;
+  }
+
+  var jobDurationInMonths = jobEndDate.diff(firstRepaymentDate, 'months');
+
+  return jobDurationInMonths;
+}
   
 module.exports.calculateRepayments = function(lastStudyYear, jobs){
   if (!jobs || jobs.length === 0) {
@@ -94,24 +115,11 @@ module.exports.calculateRepayments = function(lastStudyYear, jobs){
     };
   }
 
-  var expectedRepaymentDate = moment({year: lastStudyYear + 2, months: 3});
-  var jobStart = jobs[0].startDate;
-  var jobStartDate = moment(jobStart);
   var salary = jobs[0].basicSalary;
-  var firstRepaymentDate;
 
-  if (expectedRepaymentDate.isAfter(jobStartDate)) {
-    firstRepaymentDate = expectedRepaymentDate;
-  }else {
-    firstRepaymentDate = jobStartDate;
-  }
-  
-  var jobEnd = jobs[0].endDate;
-  var jobEndDate = moment(jobEnd);
-
-  var jobDurationInMonths = jobEndDate.diff(firstRepaymentDate, 'months');
+  var nrOfMonthsRepaid = calculateNumberOfMonthsRepayed(lastStudyYear, jobs[0]);
   var monthlyRepayment = calculateMonthlyRepayment(salary);
-  var totalRepayment = monthlyRepayment * jobDurationInMonths;
+  var totalRepayment = monthlyRepayment * nrOfMonthsRepaid;
 
   return {
     total: math.round(totalRepayment, 2)
