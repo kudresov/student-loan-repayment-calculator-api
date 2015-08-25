@@ -78,7 +78,12 @@ var interestRates = [
 
 var calculateMonthlyRepayment = function(salary){
   var yearlyDeductableAmout = salary - REPAYMENT_THRESHOLD;
+  if (yearlyDeductableAmout <= 0) {
+    return 0;
+  }
+
   var monthlyDeduction = yearlyDeductableAmout * REPAYMENT_PERC / 12;
+
   return monthlyDeduction;
 };
   
