@@ -106,7 +106,7 @@ var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
   var jobDurationInMonths = jobEndDate.diff(firstRepaymentDate, 'months');
 
   return jobDurationInMonths;
-}
+};
   
 module.exports.calculateRepayments = function(lastStudyYear, jobs){
   if (!jobs || jobs.length === 0) {

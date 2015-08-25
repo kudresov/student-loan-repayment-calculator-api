@@ -128,6 +128,27 @@ describe('/repayment', function(){
         });
       });
 
+      describe('and 17335 salary', function(){
+        var salary = 15000;
+
+        describe('for 12 months starting on 1st of September 20011', function(){
+          it('should have repayed 0£', function(done){
+            requestBody.jobs = [
+                        {
+                            startDate: '2011-09-01T00:00:00.000Z',
+                            endDate: '2012-09-01T00:00:00.000Z',
+                            basicSalary: salary
+                        }];
+
+            repaymentRequest(requestBody)
+              .end(function(err, res) {
+                expect(res.status).to.equal(201);
+                expect(res.body.totalRepaid).to.equal(0);
+                done();
+              });  
+          });
+        });
+      });
     });
   });
 });
