@@ -43,6 +43,7 @@ describe('/repayment', function(){
         repaymentRequest(requestBody)
           .end(function(err, res) {
             expect(res.status).to.equal(201);
+            res.body.totalLoan.should.equal(9595);
             done();
           });        
       });

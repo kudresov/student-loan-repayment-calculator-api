@@ -1,23 +1,28 @@
+'use strict';
+var R = require('Ramda');
+
+var MONTHS_IN_FIRST_YEAR = 7;
+
 var interestRates = [
   {
-    startYear: 2014,
-    rate: 1.5
+    year: 2014,
+    rate: 0.015
   },
   {
-    startYear: 2013,
-    rate: 1.5
+    year: 2013,
+    rate: 0.015
   },
   {
-    startYear: 2012,
-    rate: 1.5
+    year: 2012,
+    rate: 0.015
   },
   {
-    startYear: 2011,
-    rate: 1.5
+    year: 2011,
+    rate: 0.015
   },
   {
-    startYear: 2010,
-    rate: 1.5
+    year: 2010,
+    rate: 0
   }
 // 2009/10 0.0
 // 6 March 2009 - 31 August 2009 1.5
@@ -36,3 +41,18 @@ var interestRates = [
 // 1999/00 2.1
 // 1998/99 3.5
 ];
+
+var getInterestRateForYear = function(year){
+  return R.find(R.propEq('year', year))(interestRates).rate;
+};
+
+module.exports.calculateInterestForYear = function(year, sum){
+  var rate = getInterestRateForYear(year);
+  return rate * sum;
+};
+
+module.exports.calculateInterestForFirstYear = function(year, sum){
+  var rate = getInterestRateForYear(year);
+  var monthlyInterest = (rate * sum) / 12;
+  return monthlyInterest * MONTHS_IN_FIRST_YEAR;
+};
