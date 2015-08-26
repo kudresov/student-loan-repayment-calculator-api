@@ -1,7 +1,7 @@
 'use strict';
 
-var repayment = require('./repayment');
+var loanCalculator = require('./loanCalculator');
 
 module.exports = function(app) {
-  app.post('/repayment', repayment.validation, repayment.route);
+  app.post('/repayment', loanCalculator.validation, loanCalculator.route);
 };
