@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('underscore');
+var R = require('ramda');
 var moment = require('moment');
 var math = require('mathjs');
 var REPAYMENT_THRESHOLD = 17335;
@@ -83,7 +83,6 @@ var calculateMonthlyRepayment = function(salary){
   }
 
   var monthlyDeduction = yearlyDeductableAmout * REPAYMENT_PERC / 12;
-
   return monthlyDeduction;
 };
 
@@ -107,30 +106,32 @@ var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
 
   return jobDurationInMonths;
 };
-  
-module.exports.calculateRepayments = function(lastStudyYear, jobs){
-  if (!jobs || jobs.length === 0) {
-    return {
-      total: 0
-    };
-  }
 
-  var salary = jobs[0].basicSalary;
+var calculateRepaymentsRepaymentsForJob = function(lastStudyYear, job){
+  var salary = job.basicSalary;
 
-  var nrOfMonthsRepaid = calculateNumberOfMonthsRepayed(lastStudyYear, jobs[0]);
+  var nrOfMonthsRepaid = calculateNumberOfMonthsRepayed(lastStudyYear, job);
   var monthlyRepayment = calculateMonthlyRepayment(salary);
   var totalRepayment = monthlyRepayment * nrOfMonthsRepaid;
 
+  return math.round(totalRepayment, 2);
+};
+  
+module.exports.calculateRepayments = function(lastStudyYear, jobs){
+  var repaymentCalc = R.curry(calculateRepaymentsRepaymentsForJob);
+  var jobPayouts = R.map(repaymentCalc(lastStudyYear), jobs);
+  var result = R.sum(jobPayouts);
+  
   return {
-    total: math.round(totalRepayment, 2)
+    total: result
   };
 };
 
 module.exports.calculateTotalLoan = function(studyYears){
   var tuitionYearsFilter = function(studyYear){
-    if (_.contains(studyYears, studyYear.startYear)) {
+    if (R.contains(studyYear.startYear, studyYears)) {
       return true;
-    }else {
+    } else {
       return false;
     }
   };
@@ -139,11 +140,11 @@ module.exports.calculateTotalLoan = function(studyYears){
     return memo + fee;
   };
 
-  var totalLoan = _.filter(tuitionFees, tuitionYearsFilter)
-                         .map(function(tuitionYear){
-                           return tuitionYear.fee;
-                         })
-                         .reduce(sum);
+  var totalLoan = R.filter(tuitionYearsFilter, tuitionFees)
+                   .map(function(tuitionYear){
+                     return tuitionYear.fee;
+                   })
+                   .reduce(sum);
 
   return totalLoan;
 };

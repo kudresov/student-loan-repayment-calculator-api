@@ -10,7 +10,7 @@
     "express-validator": "^2.12.2",
     "mathjs": "^2.1.1",
     "moment": "^2.10.6",
-    "underscore": "^1.8.3",
+    "ramda": "^0.17.1",
     "winston": "^1.0.1"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@ module.exports.route = function (req, res) {
   var data = req.body;
   var studyYears = data.studyYears;
   var lastStudyYear = _.last(studyYears);
-  var jobs = data.jobs;
+  var jobs = data.jobs || [];
 
   var totalLoan = repaymentCalculator.calculateTotalLoan(studyYears);
   var repaymentsInfo = repaymentCalculator.calculateRepayments(lastStudyYear, jobs);

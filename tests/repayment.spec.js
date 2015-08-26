@@ -134,7 +134,7 @@ describe('/repayment', function(){
       describe('and 17335 salary', function(){
         var salary = 15000;
 
-        describe('for 12 months starting on 1st of September 20011', function(){
+        describe('for 12 months starting on 1st of September 2011', function(){
           it('should have repayed 0£', function(done){
             requestBody.jobs = [
                         {
@@ -150,6 +150,41 @@ describe('/repayment', function(){
               });  
           });
         });
+      });
+
+      describe('with multiple jobs', function(){
+        describe('with 30k salary for 12 months starting on 1st of September 2011', function(){
+          var job1, job2;
+
+          beforeEach(function(){
+            job1 = {
+                      startDate: '2011-09-01T00:00:00.000Z',
+                      endDate: '2012-09-01T00:00:00.000Z',
+                      basicSalary: 30000
+                    };
+          });
+
+          describe('and 40k salary for 6 months starting on 1st of October 2012', function(){
+            beforeEach(function(){
+              job2 = {
+                        startDate: '2012-10-01T00:00:00.000Z',
+                        endDate: '2013-04-01T00:00:00.000Z',
+                        basicSalary: 40000
+                      };
+            });
+
+            it('should have repayed 2514.81£', function(done){
+              requestBody.jobs = [job1, job2];
+
+              repaymentRequest(requestBody)
+                .end(function(err, res) {
+                  expect(res.body.totalRepaid).to.equal(1494.87);
+                  done();
+                }); 
+            });
+          });
+        });
+
       });
     });
   });
