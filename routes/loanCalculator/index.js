@@ -1,6 +1,7 @@
 'use strict';
 
 var repaymentCalculator = require('./repaymentCalculator');
+var totalLoanCalcualator = require('./totalLoanCalculator');
 var R = require('Ramda');
 
 module.exports.validation = require('./validation');
@@ -11,7 +12,7 @@ module.exports.route = function (req, res) {
   var lastStudyYear = R.last(studyYears);
   var jobs = data.jobs || [];
 
-  var totalLoan = repaymentCalculator.calculateTotalLoan(studyYears);
+  var totalLoan = totalLoanCalcualator.calculateTotalLoan(studyYears);
   var repaymentsInfo = repaymentCalculator.calculateRepayments(lastStudyYear, jobs);
 
   var result = {
