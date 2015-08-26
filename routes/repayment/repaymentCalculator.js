@@ -5,6 +5,7 @@ var moment = require('moment');
 var math = require('mathjs');
 var REPAYMENT_THRESHOLD = 17335;
 var REPAYMENT_PERC = 0.09;
+var MONTHS_IN_A_YEAR = 12;
 
 var tuitionFees = [
   {
@@ -37,64 +38,26 @@ var tuitionFees = [
   }
 ];
 
-var interestRates = [
-  {
-    startYear: 2014,
-    rate: 1.5
-  },
-  {
-    startYear: 2013,
-    rate: 1.5
-  },
-  {
-    startYear: 2012,
-    rate: 1.5
-  },
-  {
-    startYear: 2011,
-    rate: 1.5
-  },
-  {
-    startYear: 2010,
-    rate: 1.5
-  }
-// 2009/10 0.0
-// 6 March 2009 - 31 August 2009 1.5
-// 6 February 2009 - 5 March 2009  2.0
-// 9 January 2009 - 5 February 2009  2.5
-// 5 December 2008 - 8 January 2009  3.0
-// 1 September 2008 - 4 December 2008  3.8
-// 2007/08 4.8
-// 2006/07 2.4
-// 2005/06 3.2
-// 2004/05 2.6
-// 2003/04 3.1
-// 2002/03 1.3
-// 2001/02 2.3
-// 2000/01 2.6
-// 1999/00 2.1
-// 1998/99 3.5
-];
-
 var calculateMonthlyRepayment = function(salary){
   var yearlyDeductableAmout = salary - REPAYMENT_THRESHOLD;
   if (yearlyDeductableAmout <= 0) {
     return 0;
   }
 
-  var monthlyDeduction = yearlyDeductableAmout * REPAYMENT_PERC / 12;
+  var monthlyDeduction = yearlyDeductableAmout * REPAYMENT_PERC / MONTHS_IN_A_YEAR;
   return monthlyDeduction;
 };
 
-var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
+// When HMRC expect to receive first payment from you
+var getExpectedRepaymentDate = function(lastStudyYear){
+  var firstRepaymentYear = lastStudyYear + 2;
+  var result = moment({year: firstRepaymentYear, months: 3});
+  return result;
+};
 
-  var expectedRepaymentDate = moment({year: lastStudyYear + 2, months: 3});
-  var jobStart = job.startDate;
-  var jobStartDate = moment(jobStart);
-  var jobEnd = job.endDate;
-  var jobEndDate = moment(jobEnd);
-  
+var getFirstRepaymentDate = function(lastStudyYear, jobStartDate){
   var firstRepaymentDate;
+  var expectedRepaymentDate = getExpectedRepaymentDate(lastStudyYear);
 
   if (expectedRepaymentDate.isAfter(jobStartDate)) {
     firstRepaymentDate = expectedRepaymentDate;
@@ -102,6 +65,16 @@ var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
     firstRepaymentDate = jobStartDate;
   }
 
+  return firstRepaymentDate;
+};
+
+var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
+  var jobStart = job.startDate;
+  var jobStartDate = moment(jobStart);
+  var jobEnd = job.endDate;
+  var jobEndDate = moment(jobEnd);
+  
+  var firstRepaymentDate = getFirstRepaymentDate(lastStudyYear, jobStartDate);
   var jobDurationInMonths = jobEndDate.diff(firstRepaymentDate, 'months');
 
   return jobDurationInMonths;
@@ -116,18 +89,8 @@ var calculateRepaymentsRepaymentsForJob = function(lastStudyYear, job){
 
   return math.round(totalRepayment, 2);
 };
-  
-module.exports.calculateRepayments = function(lastStudyYear, jobs){
-  var repaymentCalc = R.curry(calculateRepaymentsRepaymentsForJob);
-  var jobPayouts = R.map(repaymentCalc(lastStudyYear), jobs);
-  var result = R.sum(jobPayouts);
-  
-  return {
-    total: result
-  };
-};
 
-module.exports.calculateTotalLoan = function(studyYears){
+var getStudyYears = function(studyYears){
   var tuitionYearsFilter = function(studyYear){
     if (R.contains(studyYear.startYear, studyYears)) {
       return true;
@@ -136,15 +99,27 @@ module.exports.calculateTotalLoan = function(studyYears){
     }
   };
 
-  var sum = function(memo, fee){
-    return memo + fee;
+  return R.filter(tuitionYearsFilter, tuitionFees);
+};
+  
+module.exports.calculateRepayments = function(lastStudyYear, jobs){
+  var repaymentCalc = R.curry(calculateRepaymentsRepaymentsForJob);
+  var jobPayouts = R.map(repaymentCalc(lastStudyYear), jobs);
+  var result = R.sum(jobPayouts);
+
+  return {
+    total: result
+  };
+};
+
+module.exports.calculateTotalLoan = function(studyYears){
+  var studyYearsData = getStudyYears(studyYears);
+  var selectTuitionFee = function(tuitionYear) {
+    return tuitionYear.fee;
   };
 
-  var totalLoan = R.filter(tuitionYearsFilter, tuitionFees)
-                   .map(function(tuitionYear){
-                     return tuitionYear.fee;
-                   })
-                   .reduce(sum);
+  var tuitionFees = studyYearsData.map(selectTuitionFee);
+  var totalLoan = R.sum(tuitionFees);
 
   return totalLoan;
 };
