@@ -30,6 +30,21 @@ describe('/repayment', function(){
       });
     });
 
+    describe('with study years 2008 - 2011 and gap year in 2010', function(){
+      it('should have a total loan of 9745£', function(done){
+        var requestBody = {
+          studyYears: [2008, 2009, 2011],
+          placementYear: 2010
+        };
+
+        repaymentRequest(requestBody)
+          .end(function(err, res) {
+            expect(res.body.totalLoan).to.equal(9745);
+            done();
+          }); 
+      });
+    });
+
     describe('with study years 2008, 2009, 2010', function(){
       var requestBody;
 
