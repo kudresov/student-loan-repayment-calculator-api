@@ -8,7 +8,7 @@
     "chai": "^3.2.0",
     "express": "^4.13.3",
     "express-validator": "^2.12.2",
-    "mathjs": "^2.1.1",
+    "mathjs": "^2.2.0",
     "moment": "^2.10.6",
     "ramda": "^0.17.1",
     "winston": "^1.0.1"

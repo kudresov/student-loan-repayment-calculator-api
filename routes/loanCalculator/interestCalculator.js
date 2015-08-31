@@ -1,28 +1,43 @@
 'use strict';
 var R = require('Ramda');
-
-var MONTHS_IN_FIRST_YEAR = 7;
+var moment = require('moment');
+var math = require('mathjs');
 
 var interestRates = [
   {
-    year: 2014,
-    rate: 0.015
+    rate: 0.015,
+    periodStart: moment({year: 2010, month: 8, day: 1}),
+    periodEnd: moment({year: 2090})
   },
   {
-    year: 2013,
-    rate: 0.015
+    rate: 0,
+    periodStart: moment({year: 2009, month: 8, day: 1}),
+    periodEnd: moment({year: 2010, month: 7, day: 31})
   },
   {
-    year: 2012,
-    rate: 0.015
+    rate: 0.038,
+    periodStart: moment({year: 2008, month: 8, day: 1}),
+    periodEnd: moment({year: 2008, month: 11, day: 1})
   },
   {
-    year: 2011,
-    rate: 0.015
+    rate: 0.030,
+    periodStart: moment({year: 2008, month: 11, day: 1}),
+    periodEnd: moment({year: 2008, month: 11, day: 30})
   },
   {
-    year: 2010,
-    rate: 0
+    rate: 0.025,
+    periodStart: moment({year: 2009, month: 0, day: 1}),
+    periodEnd: moment({year: 2009, month: 1, day: 31})
+  },
+  {
+    rate: 0.02,
+    periodStart: moment({year: 2009, month: 1, day: 1}),
+    periodEnd: moment({year: 2009, month: 2, day: 31})
+  },
+  {
+    rate: 0.015,
+    periodStart: moment({year: 2009, month: 3, day: 1}),
+    periodEnd: moment({year: 2009, month: 7, day: 31})
   }
 // 2009/10 0.0
 // 6 March 2009 - 31 August 2009 1.5
@@ -42,17 +57,14 @@ var interestRates = [
 // 1998/99 3.5
 ];
 
-var getInterestRateForYear = function(year){
-  return R.find(R.propEq('year', year))(interestRates).rate;
-};
+module.exports.calculateInterestForMonth = function(date, sum){
+  var rate = R.find(function(interestPeriod){
+    var actualStartDate = interestPeriod.periodStart.subtract(1, 'day');
+    var actualEndDate = interestPeriod.periodEnd;
 
-module.exports.calculateInterestForYear = function(year, sum){
-  var rate = getInterestRateForYear(year);
-  return rate * sum;
-};
+    return date.isBetween(actualStartDate, actualEndDate);
+  })(interestRates).rate;
 
-module.exports.calculateInterestForFirstYear = function(year, sum){
-  var rate = getInterestRateForYear(year);
-  var monthlyInterest = (rate * sum) / 12;
-  return monthlyInterest * MONTHS_IN_FIRST_YEAR;
+  var result = rate * sum / 12;
+  return math.round(result, 2);
 };
