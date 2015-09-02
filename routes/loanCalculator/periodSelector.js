@@ -3,7 +3,7 @@
 var R = require('Ramda');
 // var moment = require('moment');
 
-module.exports.selectPeriod = function(date, periods){
+module.exports.selectPeriod = function(periods, date){
   if(!periods) {
     return null;
   }

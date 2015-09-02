@@ -3,42 +3,49 @@
 var moment = require('moment');
 var math = require('mathjs');
 var periodSelector = require('./periodSelector');
+var R = require('ramda');
 
 var interestRates = [
   {
     rate: 0.015,
-    periodStart: moment('Sep-2010', 'MMM-YYYY'),
-    periodEnd: moment('Sep-2090', 'MMM-YYYY')
+    periodEnd: moment('1-Sep-2090', 'DD-MMM-YYYY'),
+    periodStart: moment('1-Sep-2010', 'DD-MMM-YYYY')
+    
   },
   {
     rate: 0,
-    periodStart: moment('Sep-2009', 'MMM-YYYY'),
-    periodEnd: moment('Aug-2010', 'MMM-YYYY')
+    periodEnd: moment('31-Aug-2010', 'DD-MMM-YYYY'),
+    periodStart: moment('1-Sep-2009', 'DD-MMM-YYYY')
+    
   },
   {
     rate: 0.015,
-    periodStart: moment('Mar-2009', 'MMM-YYYY'),
-    periodEnd: moment('Aug-2009', 'MMM-YYYY')
+    periodEnd: moment('31-Aug-2009', 'DD-MMM-YYYY'),
+    periodStart: moment('6-Mar-2009', 'DD-MMM-YYYY')
+    
   },
   {
     rate: 0.02,
-    periodStart: moment('Feb-2009', 'MMM-YYYY'),
-    periodEnd: moment('Feb-2009', 'MMM-YYYY')
+    periodEnd: moment('5-Mar-2009', 'DD-MMM-YYYY'),
+    periodStart: moment('6-Feb-2009', 'DD-MMM-YYYY')
+    
   },
   {
     rate: 0.025,
-    periodStart: moment('Jan-2009', 'MMM-YYYY'),
-    periodEnd: moment('Jan-2009', 'MMM-YYYY')
+    periodEnd: moment('5-Feb-2009', 'DD-MMM-YYYY'),
+    periodStart: moment('9-Jan-2009', 'DD-MMM-YYYY')
+    
   },
   {
     rate: 0.030,
-    periodStart: moment('Dec-2008', 'MMM-YYYY'),
-    periodEnd: moment('Dec-2008', 'MMM-YYYY')
+    periodEnd: moment('8-Jan-2008', 'DD-MMM-YYYY'),
+    periodStart: moment('5-Dec-2008', 'DD-MMM-YYYY')
+    
   },
   {
     rate: 0.038,
-    periodStart: moment('Sep-2008', 'MMM-YYYY'),
-    periodEnd: moment('Nov-2008', 'MMM-YYYY')
+    periodEnd: moment('4-Dec-2008', 'DD-MMM-YYYY'),
+    periodStart: moment('1-Sep-2008', 'DD-MMM-YYYY')
   },
   // {
   //   rate: 0.048,
@@ -63,10 +70,31 @@ var interestRates = [
 // 1998/99 3.5
 ];
 
+function getMonthDays(month){
+  var result = [];
+  var daysInMonth = month.daysInMonth();
+
+  for (var i = daysInMonth - 1; i >= 0; i--) {
+    var newDay = moment(month).day(i);
+    result.push(newDay);
+  }
+
+  return result;
+}
+
 module.exports.calculateInterestForMonth = function(date, sum){
 
-  var period = periodSelector.selectPeriod(date, interestRates);
+  var days = getMonthDays(date);
+  var getPeriodInterestCurry = R.curry(periodSelector.selectPeriod);
+  var getPeriodInterest = getPeriodInterestCurry(interestRates);
 
-  var result = period.rate * sum / 12;
-  return math.round(result, 2);
+  var periodInterests = R.map(function(day){
+    var period = getPeriodInterest(day);
+    var dayInterest = period.rate * sum / 365;
+    return dayInterest;
+  }, days);
+
+  var periodInterest = R.sum(periodInterests);
+
+  return math.round(periodInterest, 2);
 };
