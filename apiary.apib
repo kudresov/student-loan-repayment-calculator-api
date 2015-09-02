@@ -42,7 +42,7 @@ You can create a new repayment info by subitting your known data.
             }
             
             
-## Repayments [/repayments/1]
+## Repayments [/repayments/1/details]
 
 ### Get info on repayements [GET]
 
@@ -57,6 +57,44 @@ You can create a new repayment info by subitting your known data.
                     "total": "1000"
                     "interest": 45.44,
                     "repayedThisMonth": 0,
-                    "newTotal": "1045.44"
+                    "newTotal": "1045.44",
+                    "interestRate: 0.015
+                },
+                {
+                    "date": "2008-11-01T00:00:00.511Z",
+                    "total": "1045.44"
+                    "interest": 45.44,
+                    "repayedThisMonth": 0,
+                    "newTotal": "1090.88",
+                    "interestRate: 0.015
                 }
             ]
+            
+## Repayments [/repayments/1/projections]
+
+### Get info on repayements [GET]
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            [
+                {
+                    "date": "2021-10-01T00:00:00.511Z",
+                    "total": "1000"
+                    "interest": 45.44,
+                    "repayedThisMonth": 1000,
+                    "newTotal": "1045.44",
+                    "interestRate: 0.015
+                },
+                {
+                    "date": "2021-11-01T00:00:00.511Z",
+                    "total": "1045.44"
+                    "interest": 45.44,
+                    "repayedThisMonth": 0,
+                    "newTotal": "1090.88",
+                    "interestRate: 0.015
+                }
+            ]
+            
