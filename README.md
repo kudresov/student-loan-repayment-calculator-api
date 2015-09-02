@@ -39,4 +39,8 @@ As it the interest rates varied in 2008-2009 they are calculated based on follow
 - `1pi = (l * i1 / 365 * i1l)` - 1st period interest
 - `totoalInterest = 1pi + 2pi + 3pi + npi`
 
+## Tests
+Run `gulp test:auto` to execute test continiously.
+Run `gulp test` to execute test once.
+
 [studentloanrepayment.co.uk]: http://www.studentloanrepayment.co.uk/portal/page?_pageid=93,6678642&_dad=portal&_schema=PORTAL

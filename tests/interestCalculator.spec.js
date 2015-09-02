@@ -84,6 +84,15 @@ describe('interest for', function(){
 
   });
 
+  describe('1572.50£ debt', function(){
+    describe('calculate interest for Feb-2009', function(){
+      xit('should be 2.07£', function(){
+        var result = interestCalculator.calculateInterestForMonth(moment('Feb-2009'), 1572.5);
+        result.should.equal(2.07);
+      });
+    });
+  });
+
   describe('0£ debt', function(){
     describe('calculate interest for 2011', function(){
 

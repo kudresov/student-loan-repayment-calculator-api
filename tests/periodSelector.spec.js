@@ -134,4 +134,68 @@ describe('Select Period', function(){
       });
     });
   });
+
+  describe('with 1-Feb-2011 to 15-Feb-2011 and 16-Feb-2011 to 28-Feb-2011', function(){
+    var periods = [
+      {
+        period: 'period1',
+        periodStart: moment('1-Feb-2011', 'DD-MMM-YYYY'),
+        periodEnd: moment('15-Feb-2011', 'DD-MMM-YYYY')
+      },
+      {
+        period: 'period2',
+        periodStart: moment('16-Feb-2011', 'DD-MMM-YYYY'),
+        periodEnd: moment('28-Feb-2011', 'DD-MMM-YYYY')
+      }
+    ];
+
+    describe('selecting 1-Feb-2011', function(){
+      it('should return period 1', function(){
+        var result = periodSelector.selectPeriod(moment('1-Feb-2011', 'DD-MMM-YYYY'), periods);
+        result.should.have.property('period', 'period1');     
+      });
+    });
+
+    describe('selecting 5-Feb-2011', function(){
+      it('should return period 1', function(){
+        var result = periodSelector.selectPeriod(moment('5-Feb-2011', 'DD-MMM-YYYY'), periods);
+        result.should.have.property('period', 'period1');     
+      });
+    });
+
+    describe('selecting 15-Feb-2011', function(){
+      it('should return period 1', function(){
+        var result = periodSelector.selectPeriod(moment('15-Feb-2011', 'DD-MMM-YYYY'), periods);
+        result.should.have.property('period', 'period1');     
+      });
+    });
+
+    describe('selecting 16-Feb-2011', function(){
+      it('should return period 2', function(){
+        var result = periodSelector.selectPeriod(moment('16-Feb-2011', 'DD-MMM-YYYY'), periods);
+        result.should.have.property('period', 'period2');     
+      });
+    });
+
+    describe('selecting 20-Feb-2011', function(){
+      it('should return period 2', function(){
+        var result = periodSelector.selectPeriod(moment('20-Feb-2011', 'DD-MMM-YYYY'), periods);
+        result.should.have.property('period', 'period2');     
+      });
+    });
+
+    describe('selecting 28-Feb-2011', function(){
+      it('should return period 2', function(){
+        var result = periodSelector.selectPeriod(moment('28-Feb-2011', 'DD-MMM-YYYY'), periods);
+        result.should.have.property('period', 'period2');     
+      });
+    });
+
+    describe('selecting 1-Mar-2011', function(){
+      it('should return period 2', function(){
+        var result = periodSelector.selectPeriod(moment('1-Mar-2011', 'DD-MMM-YYYY'), periods);
+        should.not.exist(result);
+      });
+    });
+  });
 });
