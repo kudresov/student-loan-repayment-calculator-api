@@ -1,0 +1,9 @@
+{
+    "preset": "node-style-guide",
+    "requireCapitalizedComments": null,
+    "maximumLineLength": null,
+    "disallowTrailingWhitespace": null,
+    "requireSpacesInsideArrayBrackets" : null,
+    "requireSpacesInsideObjectBrackets" : null,
+    "requireTrailingComma": null
+}

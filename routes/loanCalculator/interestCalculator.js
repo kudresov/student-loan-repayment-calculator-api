@@ -4,6 +4,7 @@ var moment = require('moment');
 var math = require('mathjs');
 var periodSelector = require('./periodSelector');
 var R = require('ramda');
+var dateUtils = require('./dateUtils');
 
 var interestRates = [
   {
@@ -47,11 +48,11 @@ var interestRates = [
     periodEnd: moment('4-Dec-2008', 'DD-MMM-YYYY'),
     periodStart: moment('1-Sep-2008', 'DD-MMM-YYYY')
   },
-  // {
-  //   rate: 0.048,
-  //   periodStart: moment('Sep-2008', 'MMM-YYYY'),
-  //   periodEnd: moment('Nov-2008', 'MMM-YYYY')
-  // },
+  {
+    rate: 0.048,
+    periodEnd: moment('31-Aug-2008', 'DD-MMM-YYYY'),
+    periodStart: moment('1-Sep-2007', 'DD-MMM-YYYY')
+  },
 // 2009/10 0.0
 // 6 March 2009 - 31 August 2009 1.5
 // 6 February 2009 - 5 March 2009  2.0
@@ -70,26 +71,15 @@ var interestRates = [
 // 1998/99 3.5
 ];
 
-function getMonthDays(month){
-  var result = [];
-  var daysInMonth = month.daysInMonth();
+module.exports.calculateInterestForMonth = function(date, sum) {
 
-  for (var i = daysInMonth - 1; i >= 0; i--) {
-    var newDay = moment(month).day(i);
-    result.push(newDay);
-  }
-
-  return result;
-}
-
-module.exports.calculateInterestForMonth = function(date, sum){
-
-  var days = getMonthDays(date);
+  var days = dateUtils.getMonthDays(date);
   var getPeriodInterestCurry = R.curry(periodSelector.selectPeriod);
   var getPeriodInterest = getPeriodInterestCurry(interestRates);
 
-  var periodInterests = R.map(function(day){
+  var periodInterests = R.map(function(day) {
     var period = getPeriodInterest(day);
+    console.log(day.format() + ': ' + period.rate);
     var dayInterest = period.rate * sum / 365;
     return dayInterest;
   }, days);
