@@ -52,33 +52,33 @@ describe('interest for', function() {
 
     describe('calculate interest Dec-2008', function() {
       
-      it('should be 2.5£', function() {
+      it('should be 2.64£', function() {
         var result = interestCalculator.calculateInterestForMonth(moment('Dec-2008', 'MMM-YYYY'), 1000);
-        result.should.equal(2.5);
+        result.should.equal(2.64);
       });
     });
 
     describe('calculate interest Jan-2009', function() {
       
-      it('should be 2.08£', function() {
+      it('should be 2.23£', function() {
         var result = interestCalculator.calculateInterestForMonth(moment('Jan-2009', 'MMM-YYYY'), 1000);
-        result.should.equal(2.08);
+        result.should.equal(2.23);
       });
     });
 
     describe('calculate interest Feb-2009', function() {
       
-      it('should be 1.67£', function() {
+      it('should be 1.60£', function() {
         var result = interestCalculator.calculateInterestForMonth(moment('Feb-2009', 'MMM-YYYY'), 1000);
-        result.should.equal(1.67);
+        result.should.equal(1.60);
       });
     });
 
     describe('calculate interest March-2009', function() {
       
-      it('should be 1.25£', function() {
+      it('should be 1.34£', function() {
         var result = interestCalculator.calculateInterestForMonth(moment('Mar-2009', 'MMM-YYYY'), 1000);
-        result.should.equal(1.25);
+        result.should.equal(1.34);
       });
     });
 

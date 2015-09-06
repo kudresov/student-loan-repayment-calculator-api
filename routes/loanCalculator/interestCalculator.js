@@ -39,9 +39,8 @@ var interestRates = [
   },
   {
     rate: 0.030,
-    periodEnd: moment('8-Jan-2008', 'DD-MMM-YYYY'),
+    periodEnd: moment('8-Jan-2009', 'DD-MMM-YYYY'),
     periodStart: moment('5-Dec-2008', 'DD-MMM-YYYY')
-    
   },
   {
     rate: 0.038,
@@ -79,7 +78,6 @@ module.exports.calculateInterestForMonth = function(date, sum) {
 
   var periodInterests = R.map(function(day) {
     var period = getPeriodInterest(day);
-    console.log(day.format() + ': ' + period.rate);
     var dayInterest = period.rate * sum / 365;
     return dayInterest;
   }, days);
