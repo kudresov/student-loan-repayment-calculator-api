@@ -10,14 +10,14 @@ describe('Select Period', function() {
   
   describe('with no periods', function() {
     it('selects null', function() {
-      var result = periodSelector.selectPeriod(null, moment('Jun-2011'));
+      var result = periodSelector.selectPeriod(null, moment('Jun-2011', 'MMM-YYYY'));
       should.not.exist(result);
     });
   });
 
   describe('with empty array of periods', function() {
     it('selects null', function() {
-      var result = periodSelector.selectPeriod(moment([], 'Jun-2011'));
+      var result = periodSelector.selectPeriod(moment([], 'Jun-2011', 'MMM-YYYY'));
       should.not.exist(result);
     });
   });

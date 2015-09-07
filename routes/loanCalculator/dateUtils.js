@@ -6,7 +6,7 @@ function getMonthDays(month) {
   var result = [];
   var daysInMonth = month.daysInMonth();
   
-  for (var i = 1; i <= daysInMonth; i++) {
+  for (var i = month.date(); i <= daysInMonth; i++) {
     var newDay = moment(month).date(i);
     result.push(newDay);
   }

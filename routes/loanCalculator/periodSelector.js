@@ -1,7 +1,6 @@
 'use strict';
 
 var R = require('Ramda');
-// var moment = require('moment');
 
 module.exports.selectPeriod = function(periods, date) {
   if (!periods) {

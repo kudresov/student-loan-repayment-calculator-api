@@ -1,3 +1,4 @@
+/* jshint expr:true */
 'use strict';
 
 var chai = require('chai');
@@ -41,5 +42,29 @@ describe('Month Utils', function() {
         day31.date().should.equal(31);
       });
     }); 
+  });
+
+  describe('get half a month days', function() {
+    describe('15-Feb-2011', function() {
+      var days;
+
+      beforeEach(function() {
+        days = dateUtils.getMonthDays(moment('15-Feb-2011', 'DD-MMM-YYYY'));
+      });
+
+      it('should have 14 days', function() {
+        days.should.have.length(14);
+      });
+
+      it('should have first day as 15th', function() {
+        var day1 = days[0];
+        day1.date().should.equal(15);
+      });
+
+      it('should have last day as 28th', function() {
+        var day14 = days[13];
+        day14.date().should.equal(28);      
+      });
+    });
   });
 });
