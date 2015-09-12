@@ -6,11 +6,11 @@ var chai = require('chai');
 var expect = chai.expect;
 chai.should();
 
-var repaymentDetailsCalculator = require('../routes/loanCalculator/repaymentDetailsCalculator');
+var monthDetailsCalculator = require('../routes/loanCalculator/monthDetailsCalculator');
 
 describe('Repayment Details Calcuator', function() {
   it('should exist', function() {
-    repaymentDetailsCalculator.should.exist;
+    monthDetailsCalculator.should.exist;
   });
 
   var tests = [
@@ -96,7 +96,7 @@ describe('Repayment Details Calcuator', function() {
         var repaymentDetails;
 
         beforeEach(function() {
-          repaymentDetails = repaymentDetailsCalculator.getRepaymentDetailsForPeriod(test.testMonth, test.studyYears, test.jobs);
+          repaymentDetails = monthDetailsCalculator.getRepaymentDetailsForPeriod(test.testMonth, test.studyYears, test.jobs);
         });
 
         it('should have correct number of months', function(){
@@ -115,7 +115,7 @@ describe('Repayment Details Calcuator', function() {
         var repaymentDetails;
 
         beforeEach(function() {
-          repaymentDetails = repaymentDetailsCalculator.getRepaymentDetailsForMonth(test.testMonth, test.studyYears, test.jobs, test.previousMonth);
+          repaymentDetails = monthDetailsCalculator.getRepaymentDetailsForMonth(test.testMonth, test.studyYears, test.jobs, test.previousMonth);
         });
 
         it('should have correct repayment info', function() {

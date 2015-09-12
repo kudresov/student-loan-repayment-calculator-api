@@ -29,7 +29,3 @@ module.exports.getRepaymentDetailsForMonth = function(date, studyYears, jobs, pr
     totalDebt: math.round(thisMonthDebt - thisMonthRepayment + interest, 2),
   };
 };
-
-module.exports.getRepaymentDetailsForPeriod = function(date, studyYears, jobs) {
-
-  };
