@@ -8,7 +8,7 @@ chai.should();
 
 var repaymentDetailsCalculator = require('../routes/loanCalculator/repaymentDetailsCalculator');
 
-describe.only('Repayment Details Calcuator', function() {
+describe('Repayment Details Calcuator', function() {
   it('should exist', function() {
     repaymentDetailsCalculator.should.exist;
   });
@@ -125,6 +125,6 @@ describe.only('Repayment Details Calcuator', function() {
     });
   }
 
-  totalTests.forEach(totalRepaymentTest);
+  // totalTests.forEach(totalRepaymentTest);
   tests.forEach(repaymentTest);
 });
