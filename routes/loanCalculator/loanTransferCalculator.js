@@ -38,7 +38,7 @@ module.exports.getLoanTransfer = getLoanTransfer;
 module.exports.getLoanTransferForMonth = function(studyYears, month) {
   var transfers = R.flatten(R.map(getLoanTransfer, studyYears));
   var payment = selectTransferMonth(transfers, month);
-  var defaultPayment = R.defaultTo(null);
+  var defaultPayment = R.defaultTo({payment: 0});
   
   return defaultPayment(payment);
 };

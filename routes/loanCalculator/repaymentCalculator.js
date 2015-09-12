@@ -58,6 +58,30 @@ var calculateRepaymentsRepaymentsForJob = function(lastStudyYear, job){
 
   return math.round(totalRepayment, 2);
 };
+
+var isPaymentRequired = function(lastStudyYear, month) {
+  var expectedRepaymentDate = getExpectedRepaymentDate(lastStudyYear);
+  return month.isAfter(expectedRepaymentDate) || month.isSame(expectedRepaymentDate);
+};
+
+module.exports.calculateRepaymentForMonth = function(lastStudyYear, jobs, month){
+  var needToRepayThisMonth = isPaymentRequired(lastStudyYear, month);
+  if (!needToRepayThisMonth) {
+    return 0;
+  }
+
+  var jobAtThisPeriod = R.find(function(job) {
+    var jobStartDate = moment(job.startDate);
+    var jobEndDate = moment(job.endDate);
+    return month.isBetween(jobStartDate, jobEndDate) ||
+           month.isSame(jobStartDate) || 
+           month.isSame(jobEndDate);
+  })(jobs);
+
+  var repayment = calculateMonthlyRepayment(jobAtThisPeriod.basicSalary);
+
+  return math.round(repayment, 2);
+};
   
 module.exports.calculateRepayments = function(lastStudyYear, jobs){
   var repaymentCalc = R.curry(calculateRepaymentsRepaymentsForJob);

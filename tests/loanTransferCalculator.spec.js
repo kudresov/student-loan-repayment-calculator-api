@@ -89,7 +89,7 @@ describe('Loan transfer calculator', function() {
       it('should have 0£ payment', function() {
         var date = moment('Sep-2008', 'MMM-YYYY');
         var result = loanTransferCalculator.getLoanTransferForMonth([2008, 2009, 2010], date);
-        expect(result).to.be.null;
+        expect(result).to.deep.equal({payment: 0});
       }); 
     });
 
@@ -105,7 +105,7 @@ describe('Loan transfer calculator', function() {
       it('should have 0£ payment', function() {
         var date = moment('Mar-2009', 'MMM-YYYY');
         var result = loanTransferCalculator.getLoanTransferForMonth([2008, 2009, 2010], date);
-        expect(result).to.be.null;
+        expect(result).to.deep.equal({payment: 0});
       }); 
     });
 

@@ -1,7 +1,9 @@
 'use strict';
 
 var chai = require('chai');
+var moment = require('moment');
 chai.should();
+var expect = chai.expect;
 
 var repaymentCalculator = require('../routes/loanCalculator/repaymentCalculator');
 
@@ -21,6 +23,28 @@ describe('with study years 2008, 2009, 2010', function(){
 
         var result = repaymentCalculator.calculateRepayments(lastStudyYear, jobs);
         result.total.should.equal(474.94);
+      });
+
+      describe('reapayment for Mar-2012', function(){
+         var jobs = [{
+                      startDate: '2011-09-01T00:00:00.000Z',
+                      endDate: '2013-09-01T00:00:00.000Z',
+                      basicSalary: salary
+                    }];
+
+        var result = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, moment('Mar-2012', 'MMM-YYYY'));
+        expect(result).to.equal(0);       
+      });
+
+      describe('reapayment for Apr-2012', function(){
+         var jobs = [{
+                      startDate: '2012-02-01T00:00:00.000Z',
+                      endDate: '2013-09-01T00:00:00.000Z',
+                      basicSalary: salary
+                    }];
+
+        var result = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, moment('Apr-2012', 'MMM-YYYY'));
+        expect(result).to.equal(94.99);       
       });
     });
 
