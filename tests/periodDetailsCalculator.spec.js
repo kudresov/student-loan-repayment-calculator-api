@@ -43,18 +43,18 @@ var scenario3 = {
     month: moment('Mar-2009', 'MMM-YYYY'),
     loanPaidIn: 0,
     repayments: 0,
-    interest: 2.54,
-    totalDebt: 1577.56,
+    interest: 2.11,
+    totalDebt: 1577.13,
   },
-  assertedMonth: 0,
+  assertedMonth: 6,
   expectedMonthsCount: 7
 };
 
 
-var tests = [scenario3];
+var tests = [scenario1, scenario2, scenario3];
 
 function testPeriodDetailsCalculation(test){
-  describe.only('with sutdy years ' + test.studyYears, function(){
+  describe('with sutdy years ' + test.studyYears, function(){
     describe('with period until ' + test.testMonth.format(), function(){
       var periods;
 
@@ -68,6 +68,9 @@ function testPeriodDetailsCalculation(test){
 
       it('should return correct months details', function(){
         var data = periods[test.assertedMonth];
+        expect(data.month.format()).to.equal(test.expectedData.month.format());
+        delete data.month;
+        delete test.expectedData.month;
         expect(data).to.deep.equal(test.expectedData);
       });
     });
