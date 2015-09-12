@@ -14,4 +14,17 @@ function getMonthDays(month) {
   return result;
 }
 
+
+function getMonthsBetween(startDate, endDate) {
+  var dates = [];
+
+  while (startDate.isBefore(endDate) || startDate.isSame(endDate)){
+    dates.push(moment(startDate));
+    startDate.add(1, 'months');
+  }
+
+  return dates;
+}
+
 module.exports.getMonthDays = getMonthDays;
+module.exports.getMonthsBetween = getMonthsBetween;

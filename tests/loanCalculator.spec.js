@@ -35,7 +35,19 @@ describe('/repayment', function(){
 
       beforeEach(function(){
         requestBody = {
-          studyYears: [2008, 2009, 2010]
+          studyYears: [2008, 2009, 2010],
+          jobs: [
+              {
+                  startDate: '2012-04-01T00:00:00.511Z',
+                  endDate: '2013-04-01T00:00:00.511Z',
+                  basicSalary: 30000
+              },
+              {
+                  startDate: '2013-05-01T00:00:00.511Z',
+                  endDate: '2016-04-01T00:00:00.511Z',
+                  basicSalary: 70000
+              }
+          ]
         };
       });
 

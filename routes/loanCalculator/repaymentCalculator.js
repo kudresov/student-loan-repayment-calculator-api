@@ -78,6 +78,10 @@ module.exports.calculateRepaymentForMonth = function(lastStudyYear, jobs, month)
            month.isSame(jobEndDate);
   })(jobs);
 
+  if (!jobAtThisPeriod) {
+    return 0;
+  }
+
   var repayment = calculateMonthlyRepayment(jobAtThisPeriod.basicSalary);
 
   return math.round(repayment, 2);

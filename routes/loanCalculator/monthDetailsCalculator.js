@@ -6,7 +6,7 @@ var repaymentCalculator = require('./repaymentCalculator');
 var R = require('ramda');
 var math = require('mathjs');
 
-module.exports.getRepaymentDetailsForMonth = function(date, studyYears, jobs, previousMonth) {
+module.exports.getRepaymentDetailsForMonth = function(month, studyYears, jobs, previousMonth) {
   var emptyMonth = {
     loanPaidIn: 0,
     repayments: 0,
@@ -17,12 +17,13 @@ module.exports.getRepaymentDetailsForMonth = function(date, studyYears, jobs, pr
 
   previousMonth = previousMonth || emptyMonth;
 
-  var loanTransferForMonth = loanTransferCalculator.getLoanTransferForMonth(studyYears, date);
+  var loanTransferForMonth = loanTransferCalculator.getLoanTransferForMonth(studyYears, month);
   var thisMonthDebt = previousMonth.totalDebt + loanTransferForMonth.payment;
-  var interest = interestCalculaltor.calculateInterestForMonth(date, thisMonthDebt);
-  var thisMonthRepayment = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, date);
+  var interest = interestCalculaltor.calculateInterestForMonth(month, thisMonthDebt);
+  var thisMonthRepayment = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, month);
 
   return {
+    month: month,
     loanPaidIn: loanTransferForMonth.payment,
     repayments: thisMonthRepayment,
     interest: interest,
