@@ -81,7 +81,7 @@ describe('Repayment Details Calcuator', function() {
         interest: 0,
         totalDebt: 10050,
       }
-    } 
+    }
   ];
 
   var totalTests = [

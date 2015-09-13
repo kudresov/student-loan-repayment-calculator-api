@@ -4,6 +4,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var request = require('supertest');
 var server = require('../server');
+var testData = require('./expectedResponse.json');
 chai.should();
 
 describe('/repayment', function(){
@@ -40,12 +41,12 @@ describe('/repayment', function(){
               {
                   startDate: '2012-04-01T00:00:00.000Z',
                   endDate: '2013-04-01T00:00:00.000Z',
-                  basicSalary: 30000
+                  basicSalary: 60000
               },
               {
                   startDate: '2013-05-01T00:00:00.000Z',
-                  endDate: '2016-04-01T00:00:00.000Z',
-                  basicSalary: 70000
+                  endDate: '2015-04-01T00:00:00.000Z',
+                  basicSalary: 120000
               }
           ]
         };
@@ -68,6 +69,14 @@ describe('/repayment', function(){
             expect(sep).to.equal('2008-09-01T00:00:00.000Z');
             done();
           });  
+      });
+
+      it.skip('should have correct data', function(done){
+        repaymentRequest(requestBody)
+          .end(function(err, res) {
+            expect(res.body).to.deep.equal(testData);
+            done();
+          });   
       });
     });
   });

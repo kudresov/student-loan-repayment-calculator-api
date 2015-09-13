@@ -95,7 +95,6 @@ var scenario3 = {
   expectedMonthsCount: 7
 };
 
-
 var tests = [scenario1, scenario2, scenario3];
 
 function testPeriodDetailsCalculation(test){

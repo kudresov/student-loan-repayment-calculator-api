@@ -22,7 +22,7 @@ module.exports.getRepaymentDetailsForMonth = function(month, studyYears, jobs, p
   var interest = interestCalculaltor.calculateInterestForMonth(month, thisMonthDebt);
   var thisMonthRepayment = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, month);
 
-  return {
+  var result = {
     month: month,
     debtBroughForward: previousMonth.totalDebt,
     loanPaidIn: loanTransferForMonth.payment,
@@ -30,4 +30,6 @@ module.exports.getRepaymentDetailsForMonth = function(month, studyYears, jobs, p
     interest: interest,
     totalDebt: math.round(thisMonthDebt - thisMonthRepayment + interest, 2),
   };
+
+  return result;
 };
