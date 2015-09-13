@@ -20,6 +20,7 @@ describe('Repayment Details Calcuator', function() {
       testMonth: moment('Sep-2008', 'MMM-YYYY'),
       expectedData: {
         month: moment('Sep-2008', 'MMM-YYYY'),
+        debtBroughForward: 0,
         loanPaidIn: 0,
         repayments: 0,
         interest: 0,
@@ -32,6 +33,7 @@ describe('Repayment Details Calcuator', function() {
       testMonth: moment('Feb-2011', 'MMM-YYYY'),
       expectedData: {
         month: moment('Feb-2011', 'MMM-YYYY'),
+        debtBroughForward: 0,
         loanPaidIn: 1612.5,
         repayments: 0,
         interest: 1.86,
@@ -44,6 +46,7 @@ describe('Repayment Details Calcuator', function() {
       testMonth: moment('Mar-2011', 'MMM-YYYY'),
       expectedData: {
         month: moment('Mar-2011', 'MMM-YYYY'),
+        debtBroughForward: 1614.36,
         loanPaidIn: 0,
         repayments: 0,
         interest: 2.06,
@@ -66,6 +69,7 @@ describe('Repayment Details Calcuator', function() {
               }],
       expectedData: {
         month: moment('Apr-2014', 'MMM-YYYY'),
+        debtBroughForward: 10050,
         loanPaidIn: 0,
         repayments: 94.99,
         interest: 12.39,

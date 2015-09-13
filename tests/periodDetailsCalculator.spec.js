@@ -17,36 +17,81 @@ var scenario1 = {
   studyYears: [2008, 2009, 2010],
   jobs: [],
   testMonth: moment('Sep-2008', 'MMM-YYYY'),
-  expectedData: {
-    month: moment('Sep-2008', 'MMM-YYYY'),
-    loanPaidIn: 0,
-    repayments: 0,
-    interest: 0,
-    totalDebt: 0,
-  },
-  assertedMonth: 0,
+  assertions: [
+    {
+      month: 0,
+      data: {
+        month: moment('Sep-2008', 'MMM-YYYY'),
+        debtBroughForward: 0,
+        loanPaidIn: 0,
+        repayments: 0,
+        interest: 0,
+        totalDebt: 0,
+      }
+    }
+  ],
   expectedMonthsCount: 1
 };
 
-var scenario2 = R.clone(scenario1);
-var month = moment('Oct-2008', 'MMM-YYYY');
-scenario2.testMonth = month;
-scenario2.expectedData.month = month;
-scenario2.expectedMonthsCount = 2;
-scenario2.assertedMonth = 1;
+var scenario2 = {
+  studyYears: [2008, 2009, 2010],
+  jobs: [],
+  testMonth: moment('Nov-2008', 'MMM-YYYY'),
+  assertions: [
+    {
+      month: 0,
+      data: {
+        month: moment('Sep-2008', 'MMM-YYYY'),
+        debtBroughForward: 0,
+        loanPaidIn: 0,
+        repayments: 0,
+        interest: 0,
+        totalDebt: 0,
+      }
+    },
+    {
+      month: 1,
+      data: {
+        month: moment('Oct-2008', 'MMM-YYYY'),
+        debtBroughForward: 0,
+        loanPaidIn: 0,
+        repayments: 0,
+        interest: 0,
+        totalDebt: 0,
+      }
+    },
+    {
+      month: 2,
+      data: {
+        month: moment('Nov-2008', 'MMM-YYYY'),
+        debtBroughForward: 0,
+        loanPaidIn: 0,
+        repayments: 0,
+        interest: 0,
+        totalDebt: 0,
+      }
+    }
+  ],
+  expectedMonthsCount: 3
+};
 
 var scenario3 = {
   studyYears: [2008, 2009, 2010],
   jobs: [],
   testMonth: moment('Mar-2009', 'MMM-YYYY'),
-  expectedData: {
-    month: moment('Mar-2009', 'MMM-YYYY'),
-    loanPaidIn: 0,
-    repayments: 0,
-    interest: 2.11,
-    totalDebt: 1577.13,
-  },
-  assertedMonth: 6,
+  assertions: [
+    {
+      month: 6,
+      data: {
+        month: moment('Mar-2009', 'MMM-YYYY'),
+        debtBroughForward: 1575.02,
+        loanPaidIn: 0,
+        repayments: 0,
+        interest: 2.11,
+        totalDebt: 1577.13,
+      }
+    }
+  ],
   expectedMonthsCount: 7
 };
 
@@ -66,13 +111,17 @@ function testPeriodDetailsCalculation(test){
         expect(periods.length).to.equal(test.expectedMonthsCount);
       });
 
-      it('should return correct months details', function(){
-        var data = periods[test.assertedMonth];
-        expect(data.month.format()).to.equal(test.expectedData.month.format());
-        delete data.month;
-        delete test.expectedData.month;
-        expect(data).to.deep.equal(test.expectedData);
-      });
+      function checkMonthDetails(assertion){
+        it('should return correct months details', function(){
+          var data = periods[assertion.month];
+          expect(data.month.format()).to.equal(assertion.data.month.format());
+          delete data.month;
+          delete assertion.data.month;
+          expect(data).to.deep.equal(assertion.data);
+        });
+      }
+
+      test.assertions.forEach(checkMonthDetails);
     });
   });
 }

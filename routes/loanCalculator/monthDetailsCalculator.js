@@ -24,6 +24,7 @@ module.exports.getRepaymentDetailsForMonth = function(month, studyYears, jobs, p
 
   return {
     month: month,
+    debtBroughForward: previousMonth.totalDebt,
     loanPaidIn: loanTransferForMonth.payment,
     repayments: thisMonthRepayment,
     interest: interest,
