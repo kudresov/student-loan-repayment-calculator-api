@@ -71,7 +71,7 @@ describe('interest calculator', function() {
 
     function interestTest(test) {
       it(test.date + ' should have interest of ' + test.expectedInterest, function() {
-        var period = moment(test.date, 'MMM-YYYY');
+        var period = moment.utc(test.date, 'MMM-YYYY');
         var result = interestCalculator.calculateInterestForMonth(period, test.debt);
         result.should.equal(test.expectedInterest);
       });
@@ -82,7 +82,7 @@ describe('interest calculator', function() {
 
   describe('for half a month', function() {
     it('should return correct interest', function() {
-      var period = moment('15-Feb-2012', 'DD-MMM-YYYY');
+      var period = moment.utc('15-Feb-2012', 'DD-MMM-YYYY');
       var result = interestCalculator.calculateInterestForMonth(period, 1000);
       result.should.equal(0.62);
     });

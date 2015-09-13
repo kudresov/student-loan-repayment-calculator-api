@@ -16,12 +16,12 @@ describe('Period Details Calculator', function() {
 var scenario1 = {
   studyYears: [2008, 2009, 2010],
   jobs: [],
-  testMonth: moment('Sep-2008', 'MMM-YYYY'),
+  testMonth: moment.utc('Sep-2008', 'MMM-YYYY'),
   assertions: [
     {
       month: 0,
       data: {
-        month: moment('Sep-2008', 'MMM-YYYY'),
+        month: moment.utc('Sep-2008', 'MMM-YYYY'),
         debtBroughForward: 0,
         loanPaidIn: 0,
         repayments: 0,
@@ -36,12 +36,12 @@ var scenario1 = {
 var scenario2 = {
   studyYears: [2008, 2009, 2010],
   jobs: [],
-  testMonth: moment('Nov-2008', 'MMM-YYYY'),
+  testMonth: moment.utc('Nov-2008', 'MMM-YYYY'),
   assertions: [
     {
       month: 0,
       data: {
-        month: moment('Sep-2008', 'MMM-YYYY'),
+        month: moment.utc('Sep-2008', 'MMM-YYYY'),
         debtBroughForward: 0,
         loanPaidIn: 0,
         repayments: 0,
@@ -52,7 +52,7 @@ var scenario2 = {
     {
       month: 1,
       data: {
-        month: moment('Oct-2008', 'MMM-YYYY'),
+        month: moment.utc('Oct-2008', 'MMM-YYYY'),
         debtBroughForward: 0,
         loanPaidIn: 0,
         repayments: 0,
@@ -63,7 +63,7 @@ var scenario2 = {
     {
       month: 2,
       data: {
-        month: moment('Nov-2008', 'MMM-YYYY'),
+        month: moment.utc('Nov-2008', 'MMM-YYYY'),
         debtBroughForward: 0,
         loanPaidIn: 0,
         repayments: 0,
@@ -78,12 +78,12 @@ var scenario2 = {
 var scenario3 = {
   studyYears: [2008, 2009, 2010],
   jobs: [],
-  testMonth: moment('Mar-2009', 'MMM-YYYY'),
+  testMonth: moment.utc('Mar-2009', 'MMM-YYYY'),
   assertions: [
     {
       month: 6,
       data: {
-        month: moment('Mar-2009', 'MMM-YYYY'),
+        month: moment.utc('Mar-2009', 'MMM-YYYY'),
         debtBroughForward: 1575.02,
         loanPaidIn: 0,
         repayments: 0,

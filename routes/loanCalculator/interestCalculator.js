@@ -9,48 +9,48 @@ var dateUtils = require('./dateUtils');
 var interestRates = [
   {
     rate: 0.015,
-    periodEnd: moment('1-Sep-2090', 'DD-MMM-YYYY'),
-    periodStart: moment('1-Sep-2010', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('1-Sep-2090', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('1-Sep-2010', 'DD-MMM-YYYY')
     
   },
   {
     rate: 0,
-    periodEnd: moment('31-Aug-2010', 'DD-MMM-YYYY'),
-    periodStart: moment('1-Sep-2009', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('31-Aug-2010', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('1-Sep-2009', 'DD-MMM-YYYY')
     
   },
   {
     rate: 0.015,
-    periodEnd: moment('31-Aug-2009', 'DD-MMM-YYYY'),
-    periodStart: moment('6-Mar-2009', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('31-Aug-2009', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('6-Mar-2009', 'DD-MMM-YYYY')
     
   },
   {
     rate: 0.02,
-    periodEnd: moment('5-Mar-2009', 'DD-MMM-YYYY'),
-    periodStart: moment('6-Feb-2009', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('5-Mar-2009', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('6-Feb-2009', 'DD-MMM-YYYY')
     
   },
   {
     rate: 0.025,
-    periodEnd: moment('5-Feb-2009', 'DD-MMM-YYYY'),
-    periodStart: moment('9-Jan-2009', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('5-Feb-2009', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('9-Jan-2009', 'DD-MMM-YYYY')
     
   },
   {
     rate: 0.030,
-    periodEnd: moment('8-Jan-2009', 'DD-MMM-YYYY'),
-    periodStart: moment('5-Dec-2008', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('8-Jan-2009', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('5-Dec-2008', 'DD-MMM-YYYY')
   },
   {
     rate: 0.038,
-    periodEnd: moment('4-Dec-2008', 'DD-MMM-YYYY'),
-    periodStart: moment('1-Sep-2008', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('4-Dec-2008', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('1-Sep-2008', 'DD-MMM-YYYY')
   },
   {
     rate: 0.048,
-    periodEnd: moment('31-Aug-2008', 'DD-MMM-YYYY'),
-    periodStart: moment('1-Sep-2007', 'DD-MMM-YYYY')
+    periodEnd: moment.utc('31-Aug-2008', 'DD-MMM-YYYY'),
+    periodStart: moment.utc('1-Sep-2007', 'DD-MMM-YYYY')
   },
 // 2009/10 0.0
 // 6 March 2009 - 31 August 2009 1.5

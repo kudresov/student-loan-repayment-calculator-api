@@ -20,7 +20,7 @@ var calculateMonthlyRepayment = function(salary){
 // When HMRC expect to receive first payment from you
 var getExpectedRepaymentDate = function(lastStudyYear){
   var firstRepaymentYear = lastStudyYear + 2;
-  var result = moment({year: firstRepaymentYear, months: 3});
+  var result = moment.utc({year: firstRepaymentYear, months: 3});
   return result;
 };
 
@@ -39,9 +39,9 @@ var getFirstRepaymentDate = function(lastStudyYear, jobStartDate){
 
 var calculateNumberOfMonthsRepayed = function(lastStudyYear, job){
   var jobStart = job.startDate;
-  var jobStartDate = moment(jobStart);
+  var jobStartDate = moment.utc(jobStart);
   var jobEnd = job.endDate;
-  var jobEndDate = moment(jobEnd);
+  var jobEndDate = moment.utc(jobEnd);
   
   var firstRepaymentDate = getFirstRepaymentDate(lastStudyYear, jobStartDate);
   var jobDurationInMonths = jobEndDate.diff(firstRepaymentDate, 'months');
@@ -71,8 +71,8 @@ module.exports.calculateRepaymentForMonth = function(lastStudyYear, jobs, month)
   }
 
   var jobAtThisPeriod = R.find(function(job) {
-    var jobStartDate = moment(job.startDate);
-    var jobEndDate = moment(job.endDate);
+    var jobStartDate = moment.utc(job.startDate);
+    var jobEndDate = moment.utc(job.endDate);
     return month.isBetween(jobStartDate, jobEndDate) ||
            month.isSame(jobStartDate) || 
            month.isSame(jobEndDate);

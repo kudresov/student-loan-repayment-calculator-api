@@ -7,7 +7,7 @@ var dateUtil = require('./dateUtils');
 
 module.exports.getRepaymentDetailsForPeriod = function(date, studyYears, jobs) {
   var firstStudyYear = studyYears[0];
-  var firstMonth = moment({year: firstStudyYear, month: 8});
+  var firstMonth = moment.utc({year: firstStudyYear, month: 8});
   var months = dateUtil.getMonthsBetween(firstMonth, date);
 
   var result = [];

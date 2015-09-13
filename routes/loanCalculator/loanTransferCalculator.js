@@ -20,8 +20,8 @@ function getLoanTransfer(studyYear) {
   var tutionYear = tuitionFeeService.getStudyYear(studyYear);
   var halfYearPayment = tutionYear.fee / 2;
 
-  var firstPaymentDate = moment({year: studyYear + 1, month: 1, day: 3});
-  var secondPaymentDate = moment({year: studyYear + 1, month: 5, day: 3});
+  var firstPaymentDate = moment.utc({year: studyYear + 1, month: 1, day: 3});
+  var secondPaymentDate = moment.utc({year: studyYear + 1, month: 5, day: 3});
 
   return [{
     payment: halfYearPayment,

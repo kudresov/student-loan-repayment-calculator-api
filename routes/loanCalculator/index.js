@@ -13,7 +13,7 @@ module.exports.route = function (req, res) {
   var studyYears = data.studyYears;
   var lastStudyYear = R.last(studyYears);
   var jobs = data.jobs || [];
-  var thisMonth = moment({day: 1, hour: 0, minute: 0, second: 0, millisecond: 0});
+  var thisMonth = moment.utc({day: 1, hour: 0, minute: 0, second: 0, millisecond: 0});
 
   var totalLoan = totalLoanCalcualator.calculateTotalLoan(studyYears);
   var repaymentsInfo = repaymentCalculator.calculateRepayments(lastStudyYear, jobs);

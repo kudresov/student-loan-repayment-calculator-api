@@ -87,7 +87,7 @@ describe('Loan transfer calculator', function() {
   describe('getLoanTransferForMonth', function() {
     describe('with study year 2008 for Sep-2008', function() {
       it('should have 0£ payment', function() {
-        var date = moment('Sep-2008', 'MMM-YYYY');
+        var date = moment.utc('Sep-2008', 'MMM-YYYY');
         var result = loanTransferCalculator.getLoanTransferForMonth([2008, 2009, 2010], date);
         expect(result).to.deep.equal({payment: 0});
       }); 
@@ -95,7 +95,7 @@ describe('Loan transfer calculator', function() {
 
     describe('with study year 2008 for Feb-2009', function() {
       it('should have 0£ payment', function() {
-        var date = moment('Feb-2009', 'MMM-YYYY');
+        var date = moment.utc('Feb-2009', 'MMM-YYYY');
         var result = loanTransferCalculator.getLoanTransferForMonth([2008, 2009, 2010], date);
         expect(result.payment).to.equal(1572.5);
       }); 
@@ -103,7 +103,7 @@ describe('Loan transfer calculator', function() {
 
     describe('with study year 2008 for Mar-2009', function() {
       it('should have 0£ payment', function() {
-        var date = moment('Mar-2009', 'MMM-YYYY');
+        var date = moment.utc('Mar-2009', 'MMM-YYYY');
         var result = loanTransferCalculator.getLoanTransferForMonth([2008, 2009, 2010], date);
         expect(result).to.deep.equal({payment: 0});
       }); 

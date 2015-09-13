@@ -7,7 +7,7 @@ function getMonthDays(month) {
   var daysInMonth = month.daysInMonth();
   
   for (var i = month.date(); i <= daysInMonth; i++) {
-    var newDay = moment(month).date(i);
+    var newDay = moment.utc(month).date(i);
     result.push(newDay);
   }
 
@@ -19,7 +19,7 @@ function getMonthsBetween(startDate, endDate) {
   var dates = [];
 
   while (startDate.isBefore(endDate) || startDate.isSame(endDate)){
-    dates.push(moment(startDate));
+    dates.push(moment.utc(startDate));
     startDate.add(1, 'months');
   }
 

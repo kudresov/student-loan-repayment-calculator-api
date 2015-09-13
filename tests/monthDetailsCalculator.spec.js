@@ -17,9 +17,9 @@ describe('Repayment Details Calcuator', function() {
     {
       studyYears: [2008, 2009, 2010],
       jobs: [],
-      testMonth: moment('Sep-2008', 'MMM-YYYY'),
+      testMonth: moment.utc('Sep-2008', 'MMM-YYYY'),
       expectedData: {
-        month: moment('Sep-2008', 'MMM-YYYY'),
+        month: moment.utc('Sep-2008', 'MMM-YYYY'),
         debtBroughForward: 0,
         loanPaidIn: 0,
         repayments: 0,
@@ -30,9 +30,9 @@ describe('Repayment Details Calcuator', function() {
     {
       studyYears: [2010, 2011, 2012],
       jobs: [],
-      testMonth: moment('Feb-2011', 'MMM-YYYY'),
+      testMonth: moment.utc('Feb-2011', 'MMM-YYYY'),
       expectedData: {
-        month: moment('Feb-2011', 'MMM-YYYY'),
+        month: moment.utc('Feb-2011', 'MMM-YYYY'),
         debtBroughForward: 0,
         loanPaidIn: 1612.5,
         repayments: 0,
@@ -43,9 +43,9 @@ describe('Repayment Details Calcuator', function() {
     {
       studyYears: [2010, 2011, 2012],
       jobs: [],
-      testMonth: moment('Mar-2011', 'MMM-YYYY'),
+      testMonth: moment.utc('Mar-2011', 'MMM-YYYY'),
       expectedData: {
-        month: moment('Mar-2011', 'MMM-YYYY'),
+        month: moment.utc('Mar-2011', 'MMM-YYYY'),
         debtBroughForward: 1614.36,
         loanPaidIn: 0,
         repayments: 0,
@@ -61,14 +61,14 @@ describe('Repayment Details Calcuator', function() {
     },
     {
       studyYears: [2012],
-      testMonth: moment('Apr-2014', 'MMM-YYYY'),
+      testMonth: moment.utc('Apr-2014', 'MMM-YYYY'),
       jobs: [{
                 startDate: '2013-09-01T00:00:00.000Z',
                 endDate: '2015-09-01T00:00:00.000Z',
                 basicSalary: 30000
               }],
       expectedData: {
-        month: moment('Apr-2014', 'MMM-YYYY'),
+        month: moment.utc('Apr-2014', 'MMM-YYYY'),
         debtBroughForward: 10050,
         loanPaidIn: 0,
         repayments: 94.99,
@@ -87,7 +87,7 @@ describe('Repayment Details Calcuator', function() {
   var totalTests = [
     {
       studyYears: [2010, 2011, 2012],
-      testMonth: moment('Apr-2014', 'MMM-YYYY'),
+      testMonth: moment.utc('Apr-2014', 'MMM-YYYY'),
       jobs: [{
                 startDate: '2013-09-01T00:00:00.000Z',
                 endDate: '2015-09-01T00:00:00.000Z',

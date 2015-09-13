@@ -32,7 +32,7 @@ describe('with study years 2008, 2009, 2010', function(){
                       basicSalary: salary
                     }];
 
-        var result = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, moment('Mar-2012', 'MMM-YYYY'));
+        var result = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, moment.utc('Mar-2012', 'MMM-YYYY'));
         expect(result).to.equal(0);       
       });
 
@@ -43,7 +43,7 @@ describe('with study years 2008, 2009, 2010', function(){
                       basicSalary: salary
                     }];
 
-        var result = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, moment('Apr-2012', 'MMM-YYYY'));
+        var result = repaymentCalculator.calculateRepaymentForMonth(lastStudyYear, jobs, moment.utc('Apr-2012', 'MMM-YYYY'));
         expect(result).to.equal(94.99);       
       });
     });
