@@ -5,7 +5,7 @@ var moment = require('moment');
 var monthDetailsCalculator = require('./monthDetailsCalculator');
 var dateUtil = require('./dateUtils');
 
-module.exports.getRepaymentDetailsForMonth = function(date, studyYears, jobs) {
+module.exports.getRepaymentDetailsForPeriod = function(date, studyYears, jobs) {
   var firstStudyYear = studyYears[0];
   var firstMonth = moment({year: firstStudyYear, month: 8});
   var months = dateUtil.getMonthsBetween(firstMonth, date);

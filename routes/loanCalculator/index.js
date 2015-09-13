@@ -17,7 +17,7 @@ module.exports.route = function (req, res) {
 
   var totalLoan = totalLoanCalcualator.calculateTotalLoan(studyYears);
   var repaymentsInfo = repaymentCalculator.calculateRepayments(lastStudyYear, jobs);
-  var reapaymentDetails = periodDetailsCalculator.getRepaymentDetailsForMonth(thisMonth, studyYears, jobs);
+  var reapaymentDetails = periodDetailsCalculator.getRepaymentDetailsForPeriod(thisMonth, studyYears, jobs);
 
   var result = {
     lastRepaymentDate: '2023-04-01T00:00:00.511Z',

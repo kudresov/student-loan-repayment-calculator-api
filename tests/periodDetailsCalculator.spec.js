@@ -59,7 +59,7 @@ function testPeriodDetailsCalculation(test){
       var periods;
 
       beforeEach(function(){
-        periods = periodDetailsCalculator.getRepaymentDetailsForMonth(test.testMonth, test.studyYears, test.jobs);
+        periods = periodDetailsCalculator.getRepaymentDetailsForPeriod(test.testMonth, test.studyYears, test.jobs);
       });
 
       it('should have correct number of months', function(){
